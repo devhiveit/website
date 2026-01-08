@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Page not found — DEVHIVE IT SOLUTIONS</title>
+  <meta name="robots" content="noindex">
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+  <link rel="stylesheet" href="css/styles.css">
+  <style>
+    main { display: grid; place-items: center; min-height: 70vh; text-align: center; }
+    .code { font-weight: 800; color: var(--color-primary); font-size: clamp(2rem, 6vw, 4rem); }
+    .msg { color: var(--muted); }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="./">
+        <span class="brand-mark" aria-hidden="true">DH</span>
+        <span class="brand-text">DEVHIVE IT SOLUTIONS</span>
+      </a>
+    </div>
+  </header>
+  <main>
+    <div class="container">
+      <div class="code">404</div>
+      <h1>Sorry, we can’t find that page.</h1>
+      <p class="msg">The page might have been moved or deleted.</p>
+      <p><a class="btn primary" href="./">Go to Home</a></p>
+    </div>
+  </main>
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <small>© <span id="year"></span> DEVHIVE IT SOLUTIONS</small>
+      <a href="/" class="back-to-top">Home</a>
+    </div>
+  </footer>
+  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>
