@@ -104,6 +104,7 @@ Company focus (per IFZA license):
 ### Phase 5 — QA & Deployment
 - [ ] Validate HTML/CSS (W3C validators)
 - [ ] Manual test on mobile and desktop
+- [x] Add sitemap.xml and wire Sitemap in robots.txt
 - [ ] Push changes to GitHub
 - [ ] Enable GitHub Pages (Settings → Pages)
 - [ ] Verify live site URL works and shares well (OG preview)

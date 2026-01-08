@@ -1,5 +1,4 @@
 User-agent: *
 Allow: /
 
-# Add sitemap URL after GitHub Pages is enabled and the site URL is known.
-# Sitemap: https://<your-pages-domain>/sitemap.xml
+Sitemap: https://devhiveit.github.io/website/sitemap.xml
