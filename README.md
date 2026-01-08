@@ -2,9 +2,9 @@
 
 A minimal, fast, single-page site for DEVHIVE IT SOLUTIONS. Built with plain HTML and CSS for easy maintenance and GitHub Pages hosting.
 
-Live hosting will be configured via GitHub Pages in Phase 2 (Settings → Pages). This repo serves from the repository root.
+Live hosting is configured via GitHub Pages. This repo serves from the repository root.
 
-Expected Pages URL (once enabled): https://devhiveit.github.io/website/
+Live URL: https://devhiveit.github.io/website/
 
 ## Tech
 - HTML5 + vanilla CSS (no framework)
