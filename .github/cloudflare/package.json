@@ -1,0 +1,8 @@
+{
+  "name": "devhiveit-website-deploy",
+  "private": true,
+  "description": "Pinned deploy tooling for the Cloudflare Pages release workflow",
+  "devDependencies": {
+    "wrangler": "4.145.0"
+  }
+}

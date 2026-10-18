@@ -1,0 +1,62 @@
+# Production deploy: a published release ships to devhiveit.com (Cloudflare Pages).
+# main is served separately by GitHub Pages at devhiveit.github.io/website/.
+name: Deploy to devhiveit.com
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: Existing release tag to (re)deploy
+        required: true
+
+permissions:
+  contents: read
+
+concurrency:
+  group: cloudflare-production
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    # Prereleases don't go to production
+    if: github.event_name == 'workflow_dispatch' || !github.event.release.prerelease
+    runs-on: ubuntu-latest
+    env:
+      TAG: ${{ github.event.release.tag_name || inputs.tag }}
+    steps:
+      - name: Check tag is a published release
+        if: github.event_name == 'workflow_dispatch'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release view "$TAG" -R "$GITHUB_REPOSITORY" --json isDraft,isPrerelease \
+            --jq 'if .isDraft or .isPrerelease then error("\(env.TAG) is a draft or prerelease") else empty end'
+
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: refs/tags/${{ env.TAG }}
+          persist-credentials: false
+
+      - name: Build
+        run: make dist
+
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: 22
+
+      - name: Install pinned wrangler
+        working-directory: .github/cloudflare
+        run: npm ci --ignore-scripts --no-audit --no-fund
+
+      - name: Deploy to Cloudflare Pages
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          .github/cloudflare/node_modules/.bin/wrangler pages deploy dist \
+            --project-name=devhiveit-website \
+            --branch=production \
+            --commit-hash="$(git rev-parse HEAD)" \
+            --commit-message="Release $TAG"
